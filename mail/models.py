@@ -18,8 +18,19 @@ class Account(odm.StdModel):
 	class Meta:
 		ordering = 'id'
 
+class Alias(odm.StdModel):
+	id       = fields.CompositeSymbolField('name', 'domain', seperator = '@', primary_key=True)
+	domain   = fields.SortableSymbolField()
+	name     = odm.SymbolField()
+	to       = odm.CharField()
+
+	def __unicode__(self):
+		return self.name + '@' + self.domain
+
+	class Meta:
+		ordering = 'id'
 
 models = odm.Router('redis://localhost:6379')
 models.register(Account)
-
+models.register(Alias)
 	

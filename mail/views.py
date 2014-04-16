@@ -40,18 +40,33 @@ class MailAccountViewSet(
 
 
 
-class MailAliasViewSet(viewsets.ViewSet):
-	def list(self, request):
-		pass
+class MailAliasViewSet(
+		AdvNetMixin,
+		mixins.ListModelMixin,
+		mixins.RetrieveModelMixin,
+		mixins.DestroyModelMixin,
+		viewsets.GenericViewSet
+	):
+
+	serializer_class = AliasSerializer
+	filter_fields    = ('domain',)
+	model            = models.alias
 
 	def create(self, request):
-		pass
+		serializer = AliasSerializer(data=request.DATA)
+		if serializer.is_valid():
+			alias = models.alias.new(**serializer.data)
+			alias.save()
+			return Response(AliasSerializer(alias).data, status=status.HTTP_201_CREATED)
+		else:
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-	def retrieve(self, request, pk=None):
-		pass
-		
-	def update(self, request, pk=None):
-		pass
-
-	def destroy(self, request, pk=None):
-		pass
+	def update(self, request, id=None):
+		alias = self.get_object()
+		serializer = AliasUpdateSerializer(data=request.DATA)
+		if serializer.is_valid():
+			alias.to = serializer.data['to']
+			alias.save()
+			return Response(AliasSerializer(alias).data, status=status.HTTP_200_OK)
+		else:
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
