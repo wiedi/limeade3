@@ -1,0 +1,8 @@
+Django==1.6.2
+Markdown==2.4
+django-filter==0.7
+djangorestframework==2.3.13
+passlib==1.6.2
+pymongo==2.6.3
+python-stdnet==0.8.2
+redis==2.9.1
