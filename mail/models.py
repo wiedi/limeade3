@@ -30,7 +30,7 @@ class Alias(odm.StdModel):
 	class Meta:
 		ordering = 'id'
 
-models = odm.Router('redis://localhost:6379')
+models = odm.Mapper('redis://localhost:6379')
 models.register(Account)
 models.register(Alias)
 	
