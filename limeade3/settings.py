@@ -86,3 +86,5 @@ REST_FRAMEWORK = {
 	#'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
 	'PAGINATE_BY': 10
 }
+
+STATIC_ROOT = BASE_DIR + '/static/'
