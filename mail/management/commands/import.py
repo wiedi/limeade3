@@ -2,8 +2,6 @@ from django.core.management.base import BaseCommand, CommandError
 import requests
 from mail.models import models, Account, Alias
 
-#from polls.models import Poll
-
 class Command(BaseCommand):
 	args = '<url> [url ...]'
 	help = 'Import Account and Alias data from HTTP hosted JSON files'
