@@ -38,6 +38,30 @@ class MailAccountViewSet(
 		else:
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+	@action()
+	def set_spoofing_whitelist(self, request, id=None):
+		account = self.get_object()
+		serializer = AccountUpdateSpoofingWhitelistSerializer(data=request.DATA)
+		if serializer.is_valid():
+			account.spoofing_whitelist = serializer.data['spoofing_whitelist']
+			account.save()
+			return Response({'status': 'spoofing_whitelist set'})
+		else:
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+	@action()
+	def disable_submission(self, request, id=None):
+		account = self.get_object()
+		account.submission_disabled = True
+		account.save()
+		return Response({'status': 'submission disabled'})
+
+	@action()
+	def enable_submission(self, request, id=None):
+		account = self.get_object()
+		account.submission_disabled = False
+		account.save()
+		return Response({'status': 'submission enabled'})
 
 
 class MailAliasViewSet(
