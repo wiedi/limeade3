@@ -64,8 +64,9 @@ def delete(args):
 def parse_args():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--server', '-s', action="store", help='API-Server [http://localhost:8000/]', default='http://localhost:8000/')
-	subparsers = parser.add_subparsers(help='commands')
-	
+	subparsers = parser.add_subparsers(help='commands', dest='cmd')
+	subparsers.required = True
+
 	# create
 	create_parser = subparsers.add_parser('create', help='Create new Mail Account')
 	create_parser.add_argument('email',	   action='store', help='Email address')
