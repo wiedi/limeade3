@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 import requests
 from mail.models import models, Account, Alias
+from mail.serializers import AccountSerializer, AliasSerializer
 
 class Command(BaseCommand):
 	args = '<url> [url ...]'
@@ -15,9 +16,15 @@ class Command(BaseCommand):
 					# account
 					t.delete(s.query(models.account).filter(domain=domain))
 					for a in data[domain].get('account', []):
-						t.add(Account(name=a["name"], password=a["password"], domain=domain))
+						a['domain'] = domain
+						acc = AccountSerializer(data=a)
+						if acc.is_valid():
+							t.add(Account(**acc.data))
 					# alias
 					t.delete(s.query(models.alias).filter(domain=domain))
 					for a in data[domain].get('alias', []):
-						t.add(Alias(name=a["name"], to=a["to"], domain=domain))
+						a['domain'] = domain
+						alias = AliasSerializer(data=a)
+						if alias.is_valid():
+							t.add(Alias(**alias.data))
 
