@@ -6,8 +6,9 @@ class AccountSerializer(serializers.Serializer):
 	domain	 = serializers.CharField()
 	password = serializers.CharField()
 
-	submission_disabled = serializers.BooleanField(default=False)
-	spoofing_whitelist  = serializers.CharField(default='', required=False)
+	submission_disabled  = serializers.BooleanField(default=False)
+	subaddress_extension = serializers.BooleanField(default=False)
+	spoofing_whitelist   = serializers.CharField(default='', required=False)
 
 class AccountPasswordSerializer(serializers.Serializer):
 	password = serializers.CharField()

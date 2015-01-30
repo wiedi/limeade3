@@ -63,6 +63,20 @@ class MailAccountViewSet(
 		account.save()
 		return Response({'status': 'submission enabled'})
 
+	@action()
+	def enable_subaddress(self, request, id=None):
+		account = self.get_object()
+		account.subaddress_extension = True
+		account.save()
+		return Response({'status': 'subaddress extension mode enabled'})
+
+	@action()
+	def disable_subaddress(self, request, id=None):
+		account = self.get_object()
+		account.subaddress_extension = False
+		account.save()
+		return Response({'status': 'subaddress extension mode disabled'})
+
 
 class MailAliasViewSet(
 		AdvNetMixin,
