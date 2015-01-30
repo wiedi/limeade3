@@ -9,8 +9,9 @@ class Account(odm.StdModel):
 	name     = odm.SymbolField()
 	password = odm.CharField()
 
-	submission_disabled = odm.BooleanField(default=False)
-	spoofing_whitelist  = odm.CharField(default='')
+	submission_disabled  = odm.BooleanField(default=False)
+	subaddress_extension = odm.BooleanField(default=False)
+	spoofing_whitelist   = odm.CharField(default='')
 
 	def __unicode__(self):
 		return self.name + '@' + self.domain
