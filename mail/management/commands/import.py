@@ -8,8 +8,16 @@ class Command(BaseCommand):
 	help = 'Import Account and Alias data from HTTP hosted JSON files'
 
 	def handle(self, *args, **options):
+		datas = []
 		for url in args:
-			data = requests.get(url).json()
+			try:
+				datas += [requests.get(url).json()]
+			except Exception as e:
+				print('failed to load: ' + url)
+				print(str(e))
+				return
+
+		for data in datas:
 			s = models.session()
 			for domain in data.keys():
 				with s.begin() as t:
