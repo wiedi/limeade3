@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
+import urlparse
 import requests
 from mail.models import models, Account, Alias
 from mail.serializers import AccountSerializer, AliasSerializer
@@ -13,7 +14,7 @@ class Command(BaseCommand):
 			try:
 				datas += [requests.get(url).json()]
 			except Exception as e:
-				print('failed to load: ' + url)
+				print('failed to load: ' + urlparse.urlparse(url).hostname)
 				print(str(e))
 				return
 
