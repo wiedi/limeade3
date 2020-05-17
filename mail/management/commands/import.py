@@ -5,12 +5,14 @@ from mail.models import models, Account, Alias
 from mail.serializers import AccountSerializer, AliasSerializer
 
 class Command(BaseCommand):
-	args = '<url> [url ...]'
 	help = 'Import Account and Alias data from HTTP hosted JSON files'
+
+	def add_arguments(self, parser):
+		parser.add_argument('urls', nargs='+', help="<url> [url ...]")
 
 	def handle(self, *args, **options):
 		datas = []
-		for url in args:
+		for url in options['urls']:
 			try:
 				datas += [requests.get(url).json()]
 			except Exception as e:

@@ -40,7 +40,7 @@ INSTALLED_APPS = (
 	'mail'
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
 	'django.contrib.sessions.middleware.SessionMiddleware',
 	'django.middleware.common.CommonMiddleware',
 	'django.middleware.csrf.CsrfViewMiddleware',
@@ -53,6 +53,22 @@ ROOT_URLCONF = 'limeade3.urls'
 
 WSGI_APPLICATION = 'limeade3.wsgi.application'
 
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.template.context_processors.static',
+                'django.template.context_processors.media',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases

@@ -8,7 +8,7 @@ class AdvNetFilter(filters.BaseFilterBackend):
 			return queryset
 
 		for filter_field in filter_fields:
-			v = request.QUERY_PARAMS.get(filter_field, None)
+			v = request.query_params.get(filter_field, None)
 			if v:
 				queryset = queryset.filter(**{filter_field: v})
 
